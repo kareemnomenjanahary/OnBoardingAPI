@@ -1,0 +1,73 @@
+openapi: 3.0.0
+info:
+  title: API pour la gestion des élèves
+  version: 1.0.0
+  description: 
+    Prénom : Kareem
+
+
+    Nom : Nomenjanahary
+
+
+    STD22090
+
+
+    
+servers:
+  - url: http://STD22090.com
+paths:
+  /students:
+    get:
+      tags:
+        - élèves
+      summary: Obtenir tous les élèves
+      description: Récupérer des informations sur tous les élèves inscrits
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '500':
+          description: Erreur Interne du Serveur
+    post:
+      tags:
+        - élèves
+      summary: Ajouter un nouvel élève
+      description: Enregistrer un nouvel élève
+      requestBody:
+        description: Créer un nouvel élève
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '200':
+          description:  succés
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '500':
+          description: Erreur  du Serveur
+components:
+  schemas:
+    Student:
+      required:
+        - id
+        - name
+        - birthdate
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12
+        name:
+          type: string
+          example: koto
+        birthdate:
+          type:  String
+          format: date
+          example: 2003-06-17
