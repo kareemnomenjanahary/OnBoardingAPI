@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: gestion des teachers 
+  version: 1.0.0
+servers:
+  - url: http://STD22090.com
+paths:
+ /teachers:
+    get:
+      tags:
+        - enseignants
+      summary: Obtenir tous les enseignants
+      description: Récupérer des informations sur tous les enseignants
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+        '500':
+          description: Erreur Interne du Serveur
+    post:
+      tags:
+        - enseignants
+      summary: Ajouter un nouvel enseignant
+      description: Enregistrer un nouvel enseignant
+      requestBody:
+        description: Créer un nouvel enseignant
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Teacher'
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Teacher'
+        '500':
+          description: Erreur du Serveur
+components:
+  schemas:
+    Student:
+      required:
+        - id
+        - name
+        - birthdate
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12
+        name:
+          type: string
+          example: koto
+        birthdate:
+          type: string
+          format: date
+          example: 2003-06-17
+    Teacher:
+      required:
+        - name
+        - courses
+        - courseDuration
+      type: object
+      properties:
+        name:
+          type: string
+          example: M. Prof
+        courses:
+          type: array
+          items:
+            type: string
+            example: Mathématiques
+        courseDuration:
+          type: string
+          example: 1 heure
