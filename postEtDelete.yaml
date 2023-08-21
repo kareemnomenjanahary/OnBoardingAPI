@@ -1,0 +1,110 @@
+openapi: 3.0.0
+info:
+  title: API pour la gestion des élèves
+  version: 1.0.0
+servers:
+  - url: http://STD22090.com
+paths:
+  /students:
+    get:
+      tags:
+        - élèves
+      summary: Obtenir tous les élèves
+      description: Récupérer des informations sur tous les élèves inscrits
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '500':
+          description: Erreur Interne du Serveur
+    post:
+      tags:
+        - élèves
+      summary: Ajouter un nouvel élève
+      description: Enregistrer un nouvel élève
+      requestBody:
+        description: Créer un nouvel élève
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '500':
+          description: Erreur du Serveur
+  /students/{id}:
+    put:
+      tags:
+        - élèves
+      summary: Mettre à jour un élève
+      description: Mettre à jour les informations d'un élève existant
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'élève à mettre à jour
+          required: true
+          schema:
+            type: integer
+            example: 12
+      requestBody:
+        description: Nouvelles informations de l'élève
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Student'
+        '404':
+          description: Élève non trouvé
+    delete:
+      tags:
+        - élèves
+      summary: Supprimer un élève
+      description: Supprimer un élève existant
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'élève à supprimer
+          required: true
+          schema:
+            type: integer
+            example: 12
+      responses:
+        '204':
+          description: Succès, pas de contenu
+        '404':
+          description: Élève non trouvé
+components:
+  schemas:
+    Student:
+      required:
+        - id
+        - name
+        - birthdate
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 12
+        name:
+          type: string
+          example: koto
+        birthdate:
+          type: string
+          format: date
+          example: 2003-06-17
